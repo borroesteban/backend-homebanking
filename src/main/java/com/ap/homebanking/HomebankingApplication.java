@@ -19,8 +19,8 @@ public class HomebankingApplication {
 	public CommandLineRunner initData(ClientRepository repository){
 		return(args) ->{
 			//create client melba
-			repository.save(new Client(1,"Melba", "Morel", "melba@mindhub.com"));
-			repository.save(new Client(2,"Esteban", "Borro", "eborro@mindhub.com"));
+			repository.save(new Client("Melba", "Morel", "melba@mindhub.com"));
+			repository.save(new Client("Esteban", "Borro", "eborro@mindhub.com"));
 		};
 	}
 }
