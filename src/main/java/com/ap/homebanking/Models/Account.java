@@ -1,5 +1,6 @@
 package com.ap.homebanking.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -47,6 +48,7 @@ public class Account {
         this.balance = balance;
     }
 
+    @JsonIgnore
     public Client getAccountOwner(){
         return accountOwner;
     }

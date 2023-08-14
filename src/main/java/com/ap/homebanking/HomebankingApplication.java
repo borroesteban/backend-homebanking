@@ -20,19 +20,13 @@ public class HomebankingApplication {
 
 	@Bean
 	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository){
-		return(args) ->{
-			//create client melba
-			//clientRepository.save(new Client("Melba", "Morel", "melba@mindhub.com"));
-			//clientRepository.save(new Client("Esteban", "Borro", "eborro@mindhub.com"));
-
-			//create two accounts
-			//accountRepository.save(new Account("1",LocalDate.now(), 5000 ));
-			//accountRepository.save(new Account("2",LocalDate.now().plusDays(1), 7500 ));
-
+		return(args ->{
 
 			//create melba and another client
 			Client client1 = new Client("Melba", "Morel", "melba@mindhub.com");
+			clientRepository.save(client1); //this saves client and generates PK (ID)
 			Client client2 = new Client("Esteban", "Borro", "eborro@mindhub.com");
+			clientRepository.save(client2); //this saves client and generates PK (ID)
 
 			//create two accounts
 			Account account1 = new Account("VIN001", LocalDate.now(), 5000);
@@ -42,9 +36,13 @@ public class HomebankingApplication {
 
 			//assign accounts to client
 			client1.addAccount(account1);
+			accountRepository.save(account1);
 			client1.addAccount(account2);
+			accountRepository.save(account2);
 			client2.addAccount(account3);
+			accountRepository.save(account3);
 			client2.addAccount(account4);
-		};
+			accountRepository.save(account4);
+		});
 	}
 }
