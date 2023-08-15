@@ -1,5 +1,6 @@
 package com.ap.homebanking.repositories;
 
+import com.ap.homebanking.DTOS.AccountDTO;
 import com.ap.homebanking.Models.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
