@@ -18,7 +18,7 @@ public class Account {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="client_id")
-    private Client accountOwner;
+    private Client client;
 
     public Account(){};
     public Account(String number, LocalDate creationDate, double balance){
@@ -49,11 +49,11 @@ public class Account {
     }
 
     @JsonIgnore
-    public Client getAccountOwner(){
-        return accountOwner;
+    public Client getClient(){
+        return client;
     }
-    public void setAccountOwner(Client accountOwner){
-        this.accountOwner = accountOwner;
+    public void setClient(Client client){
+        this.client = client;
     }
 }
 

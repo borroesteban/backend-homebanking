@@ -17,15 +17,14 @@ public class ClientDTO {
     private String lastName;
     private String email;
     //Set<Account> accounts=new HashSet<>();
-    Set<AccountDTO> accounts=new HashSet<>();
+    private Set<AccountDTO> accounts;
 
     public ClientDTO(Client client) {
         this.id = client.getId();
         this.firstName = client.getFirstName();
         this.lastName = client.getLastName();
         this.email = client.getEmail();
-        //this.accounts = client.getAccounts();
-        this.accounts = (client.getAccounts()).stream().map(account -> new AccountDTO(account)).collect(toSet());
+        this.accounts = client.getAccounts().stream().map(account -> new AccountDTO(account)).collect(toSet());
     }
 
 
@@ -40,6 +39,10 @@ public class ClientDTO {
     }
     public String getEmail() {
         return email;
+    }
+
+    public Set<AccountDTO> getAccounts() {
+        return accounts;
     }
 }
 

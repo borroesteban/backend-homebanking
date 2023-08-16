@@ -1,15 +1,10 @@
 package com.ap.homebanking.Models;
 
-import com.ap.homebanking.DTOS.AccountDTO;
-import com.ap.homebanking.repositories.AccountRepository;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
-import static java.util.stream.Collectors.toSet;
 
 @Entity
 public class Client {
@@ -29,9 +24,9 @@ public class Client {
         this.email = email;
     }
 
-    @OneToMany(mappedBy="accountOwner", fetch= FetchType.EAGER)
+    @OneToMany(mappedBy="client", fetch= FetchType.EAGER)
     //Set<Account> accounts=new HashSet<>();
-    Set<Account> accounts=new HashSet<>();
+    private Set<Account> accounts = new HashSet<>();
 
 
     public long getId(){
@@ -62,7 +57,7 @@ public class Client {
 
         return accounts;}
     public void addAccount(Account account){
-        account.setAccountOwner(this);
+        account.setClient(this);
         accounts.add(account);
     }
 
