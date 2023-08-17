@@ -25,7 +25,6 @@ public class Client {
     }
 
     @OneToMany(mappedBy="client", fetch= FetchType.EAGER)
-    //Set<Account> accounts=new HashSet<>();
     private Set<Account> accounts = new HashSet<>();
 
 
@@ -60,5 +59,4 @@ public class Client {
         account.setClient(this);
         accounts.add(account);
     }
-
 }
