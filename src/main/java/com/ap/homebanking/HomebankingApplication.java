@@ -1,11 +1,9 @@
 package com.ap.homebanking;
 
-import com.ap.homebanking.Models.Account;
-import com.ap.homebanking.Models.Client;
-import com.ap.homebanking.Models.Transaction;
-import com.ap.homebanking.Models.TransactionType;
+import com.ap.homebanking.Models.*;
 import com.ap.homebanking.repositories.AccountRepository;
 import com.ap.homebanking.repositories.ClientRepository;
+import com.ap.homebanking.repositories.LoanRepository;
 import com.ap.homebanking.repositories.TransactionRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @SpringBootApplication
 public class HomebankingApplication {
@@ -23,7 +22,7 @@ public class HomebankingApplication {
 
 
 	@Bean
-	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository){
+	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository){
 		return(args ->{
 
 			//create melba and another client
@@ -57,6 +56,16 @@ public class HomebankingApplication {
 			transactionRepository.save(transaction1);
 			account2.addTransaction((transaction2));
 			transactionRepository.save(transaction2);
+
+			//create loans
+			Loan loan1 = new Loan("Hipotecario", 500000, Set.of(12,24,36,48,60));
+			Loan loan2 = new Loan("Personal",100000, Set.of(6,12,24));
+			Loan loan3 = new Loan("Automotriz", 300000, Set.of(6,12,24,36));
+
+			//save loans
+			loanRepository.save(loan1);
+			loanRepository.save(loan2);
+			loanRepository.save(loan3);
 		});
 	}
 }
