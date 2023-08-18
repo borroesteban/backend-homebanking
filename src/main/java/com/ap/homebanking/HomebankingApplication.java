@@ -1,10 +1,7 @@
 package com.ap.homebanking;
 
 import com.ap.homebanking.Models.*;
-import com.ap.homebanking.repositories.AccountRepository;
-import com.ap.homebanking.repositories.ClientRepository;
-import com.ap.homebanking.repositories.LoanRepository;
-import com.ap.homebanking.repositories.TransactionRepository;
+import com.ap.homebanking.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,7 +19,8 @@ public class HomebankingApplication {
 
 
 	@Bean
-	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository){
+	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository,
+									  TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository){
 		return(args ->{
 
 			//create melba and another client
@@ -66,6 +64,17 @@ public class HomebankingApplication {
 			loanRepository.save(loan1);
 			loanRepository.save(loan2);
 			loanRepository.save(loan3);
+
+			//create clientloans for melba
+			ClientLoan clientLoan1 = new ClientLoan(client1, loan1, 400000, 60);
+			ClientLoan clientLoan2 = new ClientLoan(client1, loan2, 50000, 12);
+			ClientLoan clientLoan3 = new ClientLoan(client2, loan2, 100000, 24);
+			ClientLoan clientLoan4 = new ClientLoan(client2, loan3, 200000, 36);
+			clientLoanRepository.save(clientLoan1);
+			clientLoanRepository.save(clientLoan2);
+			clientLoanRepository.save(clientLoan3);
+			clientLoanRepository.save(clientLoan4);
+
 		});
 	}
 }
