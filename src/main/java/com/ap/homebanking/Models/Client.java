@@ -1,11 +1,11 @@
+//imports
 package com.ap.homebanking.Models;
-
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+//class definition
 @Entity
 public class Client {
     @Id
@@ -15,52 +15,66 @@ public class Client {
     private String firstName;
     private String lastName;
     private String email;
-    public Client(){}
-    public Client(String firstName, String lastName, String email){
+
+    //constructors
+    public Client() {}
+    public Client(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
     }
 
-    @OneToMany(mappedBy="client", fetch= FetchType.EAGER)
+    //relationships
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<Account> accounts = new HashSet<>();
 
-    @OneToMany(mappedBy = "client", fetch= FetchType.EAGER)
-    private Set<ClientLoan> clientLoans;
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private Set<ClientLoan> clientLoans = new HashSet<>();
 
-
-    public long getId(){
+    //getters & setters
+    public long getId() {
         return id;
     }
-    public String getFirstName(){
+
+    public String getFirstName() {
         return firstName;
     }
-    public void setFirstName(String firstName){
+
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public String getLastName(){
+    public String getLastName() {
         return lastName;
     }
-    public void setLastName(String lastName){
+
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return email;
     }
-    public void setEmail(String Email){
+
+    public void setEmail(String Email) {
         this.email = Email;
     }
 
-    public Set<Account> getAccounts(){
+    public Set<Account> getAccounts() {
 
-        return accounts;}
-    public void addAccount(Account account){
+        return accounts;
+    }
+
+    public void addAccount(Account account) {
         account.setClient(this);
         accounts.add(account);
+
     }
-    public Set<ClientLoan> getLoans(){
+
+    public Set<ClientLoan> getClientLoans() {
         return clientLoans;
     }
 }
+
+
+

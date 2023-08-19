@@ -66,10 +66,10 @@ public class HomebankingApplication {
 			loanRepository.save(loan3);
 
 			//create clientloans for melba
-			ClientLoan clientLoan1 = new ClientLoan(client1, loan1, 400000, 60);
-			ClientLoan clientLoan2 = new ClientLoan(client1, loan2, 50000, 12);
-			ClientLoan clientLoan3 = new ClientLoan(client2, loan2, 100000, 24);
-			ClientLoan clientLoan4 = new ClientLoan(client2, loan3, 200000, 36);
+			ClientLoan clientLoan1 = new ClientLoan(client1, loan1, 400000, Set.of(60));
+			ClientLoan clientLoan2 = new ClientLoan(client1, loan2, 50000, Set.of(12));
+			ClientLoan clientLoan3 = new ClientLoan(client2, loan2, 100000, Set.of(24));
+			ClientLoan clientLoan4 = new ClientLoan(client2, loan3, 200000, Set.of(36));
 			clientLoanRepository.save(clientLoan1);
 			clientLoanRepository.save(clientLoan2);
 			clientLoanRepository.save(clientLoan3);

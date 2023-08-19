@@ -1,10 +1,11 @@
+//imports
 package com.ap.homebanking.Models;
-
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.*;
 
+
+//class definition
 @Entity
 public class Loan {
     @Id
@@ -14,19 +15,22 @@ public class Loan {
     private String name;
     private double maxAmount;
     @ElementCollection
-    @Column(name="payments")
     private Set<Integer> payments =  new HashSet<>();
 
-    @OneToMany(mappedBy = "loan", fetch= FetchType.EAGER)
-    private Set<ClientLoan> clientLoans;
 
+    //constructors
     public Loan(){};
-
     public Loan(String name, double maxAmount, Set<Integer> payments) {
         this.name = name;
         this.maxAmount = maxAmount;
         this.payments = payments;
     }
+
+    //relationships
+    @OneToMany(mappedBy = "loan", fetch= FetchType.EAGER)
+    private Set<ClientLoan> clientLoans = new HashSet<>();
+
+    //getters & setters
 
     public long getId() {
         return id;
@@ -56,7 +60,7 @@ public class Loan {
         this.payments = payments;
     }
 
-    public Set<ClientLoan> getLoans(){
+    public Set<ClientLoan> getClientLoans(){
         return clientLoans;
     }
 }

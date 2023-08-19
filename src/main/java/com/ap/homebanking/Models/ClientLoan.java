@@ -1,11 +1,12 @@
+//imports
 package com.ap.homebanking.Models;
-
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+
+//class definition
 @Entity
 public class ClientLoan {
     @Id
@@ -13,25 +14,31 @@ public class ClientLoan {
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
     private double amount;
-    private int payments;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "client")
-    private Client client;
+    @ElementCollection
+    private Set<Integer> payments=  new HashSet<>();
+    private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "loan")
-    private Loan loan;
-
-    public ClientLoan() {
-    }
-    public ClientLoan(Client client, Loan loan, double amount, int payments){
+    //constructors
+    public ClientLoan(){}
+    public ClientLoan(Client client, Loan loan, double amount, Set<Integer> payments){
         this.amount=amount;
         this.payments=payments;
         this.client=client;
         this.loan=loan;
+        this.name=loan.getName();
     }
 
+    //relationships
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "client")
+    private Client client;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "loan")
+    private Loan loan;
+
+
+    //getter&setters
     public long getId() {
         return id;
     }
@@ -44,11 +51,11 @@ public class ClientLoan {
         this.amount = amount;
     }
 
-    public int getPayments() {
+    public Set<Integer> getPayments() {
         return payments;
     }
 
-    public void setPayments(int payments) {
+    public void setPayments(Set<Integer> payments) {
         this.payments = payments;
     }
 
@@ -67,5 +74,10 @@ public class ClientLoan {
     public void setLoan(Loan loan) {
         this.loan = loan;
     }
+
+    public String getName() {
+        return name;
+    }
+
 }
 
