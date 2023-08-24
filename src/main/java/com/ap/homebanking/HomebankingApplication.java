@@ -1,6 +1,6 @@
 package com.ap.homebanking;
 
-import com.ap.homebanking.Models.*;
+import com.ap.homebanking.models.*;
 import com.ap.homebanking.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,7 +20,8 @@ public class HomebankingApplication {
 
 	@Bean
 	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository,
-									  TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository){
+									  TransactionRepository transactionRepository, LoanRepository loanRepository,
+									  ClientLoanRepository clientLoanRepository, CardRepository cardRepository){
 		return(args ->{
 
 			//create melba and another client
@@ -75,6 +76,35 @@ public class HomebankingApplication {
 			clientLoanRepository.save(clientLoan3);
 			clientLoanRepository.save(clientLoan4);
 
+			//create, assign, and save cards
+			Card card1= new Card(client1.getFirstName()+" "+client1.getLastName(),
+					CardType.DEBIT,
+					CardColor.GOLD,
+					61521105,
+					877,
+					LocalDate.now().plusYears(5),
+					LocalDate.now(), client1);
+
+			Card card2= new Card(
+					client1.getFirstName()+" "+client1.getLastName(),
+					CardType.CREDIT,
+					CardColor.TITANIUM,
+					52412216,
+					751,
+					LocalDate.now().plusYears(5),
+					LocalDate.now(), client1);
+
+			Card card3= new Card(
+					client2.getFirstName()+" "+client2.getLastName(),
+					CardType.CREDIT,
+					CardColor.SILVER,
+					70135988,
+					635,
+					LocalDate.now().plusYears(3),
+					LocalDate.now(), client2);
+			cardRepository.save(card1);
+			cardRepository.save(card2);
+			cardRepository.save(card3);
 		});
 	}
 }

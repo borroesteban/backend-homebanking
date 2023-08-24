@@ -1,6 +1,6 @@
-package com.ap.homebanking.DTOS;
+package com.ap.homebanking.dtos;
 
-import com.ap.homebanking.Models.Loan;
+import com.ap.homebanking.models.Loan;
 
 import java.util.Set;
 
