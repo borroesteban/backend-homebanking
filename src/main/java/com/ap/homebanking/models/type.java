@@ -1,6 +1,6 @@
 package com.ap.homebanking.models;
 
-public enum CardType {
+public enum type {
     CREDIT,
     DEBIT
 }

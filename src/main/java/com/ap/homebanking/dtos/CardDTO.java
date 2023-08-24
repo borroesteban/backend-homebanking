@@ -1,17 +1,17 @@
 //imports
 package com.ap.homebanking.dtos;
 import com.ap.homebanking.models.Card;
-import com.ap.homebanking.models.CardColor;
-import com.ap.homebanking.models.CardType;
+import com.ap.homebanking.models.color;
+import com.ap.homebanking.models.type;
 
 import java.time.LocalDate;
 
 //class definition
 public class CardDTO {
     private long id;
-    private String cardholder;
-    private CardType cardType;
-    private CardColor cardColor;
+    private String cardHolder;
+    private type type;
+    private color color;
     private int number;
     private int cvv;
     private LocalDate thruDate;
@@ -20,9 +20,10 @@ public class CardDTO {
 //constructors
 
     public CardDTO(Card card){
-        this.cardholder=card.getCardholder();
-        this.cardType =card.getCardType();
-        this.cardColor =card.getCardColor();
+        this.id=card.getId();
+        this.cardHolder=card.getCardHolder();
+        this.type =card.getType();
+        this.color =card.getColor();
         this.number=card.getNumber();
         this.cvv=card.getCvv();
         this.thruDate=card.getThruDate();
@@ -33,16 +34,16 @@ public class CardDTO {
         return id;
     }
 
-    public String getCardholder() {
-        return cardholder;
+    public String getCardHolder() {
+        return cardHolder;
     }
 
-    public CardType getCardType() {
-        return cardType;
+    public type getType() {
+        return type;
     }
 
-    public CardColor getCardColor() {
-        return cardColor;
+    public color getColor() {
+        return color;
     }
 
     public int getNumber() {

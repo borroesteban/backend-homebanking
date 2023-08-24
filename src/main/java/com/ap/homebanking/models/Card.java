@@ -11,9 +11,9 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
-    private String cardholder;
-    private CardType cardType;
-    private CardColor cardColor;
+    private String cardHolder;
+    private type type;
+    private color color;
     private int number;
     private int cvv;
     private LocalDate thruDate;
@@ -22,10 +22,10 @@ public class Card {
     //constructors
     public Card() {};
 
-    public Card(String cardholder, CardType cardType, CardColor cardColor, int number, int cvv, LocalDate thruDate, LocalDate fromDate, Client client) {
-        this.cardholder = cardholder;
-        this.cardType = cardType;
-        this.cardColor = cardColor;
+    public Card(String cardHolder, type type, color color, int number, int cvv, LocalDate thruDate, LocalDate fromDate, Client client) {
+        this.cardHolder = cardHolder;
+        this.type = type;
+        this.color = color;
         this.number = number;
         this.cvv = cvv;
         this.thruDate = thruDate;
@@ -41,28 +41,28 @@ public class Card {
         return id;
     }
 
-    public String getCardholder() {
-        return cardholder;
+    public String getCardHolder() {
+        return cardHolder;
     }
 
-    public void setCardholder(String cardholder) {
-        this.cardholder = cardholder;
+    public void setCardHolder(String cardHolder) {
+        this.cardHolder = cardHolder;
     }
 
-    public CardType getCardType() {
-        return cardType;
+    public type getType() {
+        return type;
     }
 
-    public void setCardType(CardType cardType) {
-        this.cardType = cardType;
+    public void setType(type type) {
+        this.type = type;
     }
 
-    public CardColor getCardColor() {
-        return cardColor;
+    public color getColor() {
+        return color;
     }
 
-    public void setCardColor(CardColor cardColor) {
-        this.cardColor = cardColor;
+    public void setColor(color color) {
+        this.color = color;
     }
 
     public int getNumber() {

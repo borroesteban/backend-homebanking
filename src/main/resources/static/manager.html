@@ -21,17 +21,17 @@
                 <form action="#" onsubmit="return false">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name:</label>
-                        <input CardType="text" v-model="firstName" class="form-control" id="name" required>
+                        <input type="text" v-model="firstName" class="form-control" id="name" required>
                     </div>
                     <div class="mb-3">
                         <label for="lastname" class="form-label">Last name:</label>
-                        <input CardType="text" v-model="lastName" class="form-control" id="lastname" required>
+                        <input type="text" v-model="lastName" class="form-control" id="lastname" required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email address:</label>
-                        <input CardType="email" v-model="email" class="form-control" id="email" required>
+                        <input type="email" v-model="email" class="form-control" id="email" required>
                     </div>
-                    <button CardType="submit" class="btn btn-success" id="add_client" v-on:click="addClient">Add
+                    <button type="submit" class="btn btn-success" id="add_client" v-on:click="addClient">Add
                         client</button>
                 </form>
                 <div class="table-responsive mt-4">

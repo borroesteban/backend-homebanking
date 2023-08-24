@@ -1,6 +1,6 @@
 package com.ap.homebanking.models;
 
-public enum CardColor {
+public enum color {
     GOLD,
     SILVER,
     TITANIUM

@@ -78,8 +78,8 @@ public class HomebankingApplication {
 
 			//create, assign, and save cards
 			Card card1= new Card(client1.getFirstName()+" "+client1.getLastName(),
-					CardType.DEBIT,
-					CardColor.GOLD,
+					type.DEBIT,
+					color.GOLD,
 					61521105,
 					877,
 					LocalDate.now().plusYears(5),
@@ -87,8 +87,8 @@ public class HomebankingApplication {
 
 			Card card2= new Card(
 					client1.getFirstName()+" "+client1.getLastName(),
-					CardType.CREDIT,
-					CardColor.TITANIUM,
+					type.CREDIT,
+					color.TITANIUM,
 					52412216,
 					751,
 					LocalDate.now().plusYears(5),
@@ -96,8 +96,8 @@ public class HomebankingApplication {
 
 			Card card3= new Card(
 					client2.getFirstName()+" "+client2.getLastName(),
-					CardType.CREDIT,
-					CardColor.SILVER,
+					type.CREDIT,
+					color.SILVER,
 					70135988,
 					635,
 					LocalDate.now().plusYears(3),
