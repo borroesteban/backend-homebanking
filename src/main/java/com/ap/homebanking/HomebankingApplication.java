@@ -25,9 +25,9 @@ public class HomebankingApplication {
 		return(args ->{
 
 			//create melba and another client
-			Client client1 = new Client("Melba", "Morel", "melba@mindhub.com");
+			Client client1 = new Client("Melba", "Morel", "melba@mindhub.com", "12345");
 			clientRepository.save(client1); //this saves client and generates PK (ID)
-			Client client2 = new Client("Esteban", "Borro", "eborro@mindhub.com");
+			Client client2 = new Client("Esteban", "Borro", "eborro@mindhub.com", "asdfg");
 			clientRepository.save(client2); //this saves client and generates PK (ID)
 
 			//create two accounts
