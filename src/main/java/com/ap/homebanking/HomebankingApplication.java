@@ -2,10 +2,13 @@ package com.ap.homebanking;
 
 import com.ap.homebanking.models.*;
 import com.ap.homebanking.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -16,6 +19,9 @@ public class HomebankingApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HomebankingApplication.class, args);
 	}
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 
 
 	@Bean
@@ -24,11 +30,13 @@ public class HomebankingApplication {
 									  ClientLoanRepository clientLoanRepository, CardRepository cardRepository){
 		return(args ->{
 
+
 			//create melba and another client
 			Client client1 = new Client("Melba", "Morel", "melba@mindhub.com", "12345");
 			clientRepository.save(client1); //this saves client and generates PK (ID)
 			Client client2 = new Client("Esteban", "Borro", "eborro@mindhub.com", "asdfg");
 			clientRepository.save(client2); //this saves client and generates PK (ID)
+
 
 			//create two accounts
 			Account account1 = new Account("VIN001", LocalDate.now(), 5000);
@@ -105,6 +113,12 @@ public class HomebankingApplication {
 			cardRepository.save(card1);
 			cardRepository.save(card2);
 			cardRepository.save(card3);
+
+			passwordEncoder.encode(client1.getPassword());
+			passwordEncoder.encode(client2.getPassword());
+
+
+
 		});
 	}
 }
