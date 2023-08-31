@@ -51,7 +51,7 @@ public class WebAuthorization {
 
         return http.build();
     }
-    
+
     private void clearAuthenticationAttributes(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
