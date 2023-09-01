@@ -55,7 +55,7 @@ public class ClientController {
     //@Autowired
     //private AccountRepository accountRepository;
     //@RequestMapping("/api/clients/current")
-    @GetMapping("/api/clients/current")
+    @GetMapping("/clients/current")
     public ClientDTO getAll(Authentication authentication) {
         return new ClientDTO(clientRepository.findByEmail(authentication.getName()));
     }
