@@ -53,6 +53,7 @@ public class WebAuthorization {
                 .antMatchers("/api/clients/current/accounts").hasAuthority("CLIENT")
                 .antMatchers("/api/clients/current/cards").hasAuthority("CLIENT");
  */
+        
 
 
         http.formLogin()
