@@ -37,12 +37,13 @@ public class AccountController {
     @Autowired
     private ClientRepository clientRepository;
 
+
     @RequestMapping(path = "/clients/current/accounts", method = RequestMethod.POST)
     public ResponseEntity<Object> createAcc(Authentication authentication) {
         Client authUser;
         authUser=clientRepository.findByEmail(authentication.getName());
         if(authUser.getAccounts().size()>3){
-            return new ResponseEntity<>("403 prohibido", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }else{
             Random random = new Random();
             int randomNumber = random.nextInt(99999999) + 1;
@@ -50,15 +51,11 @@ public class AccountController {
             Account account=new Account("VIN" + randomNumberAsString, LocalDate.now(), 0);
             accountRepository.save(account);
             authUser.addAccount(account);
-            return new ResponseEntity<>("201 creada", HttpStatus.CREATED);
+            clientRepository.save(authUser);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+            }
         }
-        //if (usuario.accounts > 3){return new ResponseEntity<>(“403 prohibido", HttpStatus.FORBIDDEN);}
-        //else{usuario.addaccount(generador random, date.now, balance=0);
-        //return new ResponseEntity<>(“201 creada", HttpStatus.CREATED);}
-        //logica comprobar cantidad de cuentas
-        //logica de salvar la cuenta en el usuario
-        }
-    }
+}
 
 
 

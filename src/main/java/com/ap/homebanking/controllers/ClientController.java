@@ -73,14 +73,6 @@ public class ClientController {
         accountRepository.save(account);
         authUser.addAccount(account);
        }
-
-
-
-
-
-
-
-
     @GetMapping("/clients/current")
     public ClientDTO getAll(Authentication authentication) {
         return new ClientDTO(clientRepository.findByEmail(authentication.getName()));

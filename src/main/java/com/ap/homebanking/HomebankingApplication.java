@@ -92,7 +92,7 @@ public class HomebankingApplication {
 			Card card1= new Card(client1.getFirstName()+" "+client1.getLastName(),
 					type.DEBIT,
 					color.GOLD,
-					61521105,
+					"61521105",
 					877,
 					LocalDate.now().plusYears(5),
 					LocalDate.now(), client1);
@@ -101,7 +101,7 @@ public class HomebankingApplication {
 					client1.getFirstName()+" "+client1.getLastName(),
 					type.CREDIT,
 					color.TITANIUM,
-					52412216,
+					"52412216",
 					751,
 					LocalDate.now().plusYears(5),
 					LocalDate.now(), client1);
@@ -110,7 +110,7 @@ public class HomebankingApplication {
 					client2.getFirstName()+" "+client2.getLastName(),
 					type.CREDIT,
 					color.SILVER,
-					70135988,
+					"70135988",
 					635,
 					LocalDate.now().plusYears(3),
 					LocalDate.now(), client2);
