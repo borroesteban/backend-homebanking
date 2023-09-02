@@ -1,17 +1,21 @@
 package com.ap.homebanking.controllers;
 
 import com.ap.homebanking.dtos.AccountDTO;
+import com.ap.homebanking.dtos.ClientDTO;
+import com.ap.homebanking.models.Account;
 import com.ap.homebanking.models.Client;
 import com.ap.homebanking.repositories.AccountRepository;
 import com.ap.homebanking.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Random;
 
 import static java.util.stream.Collectors.toList;
 
@@ -30,23 +34,33 @@ public class AccountController {
         return new AccountDTO(accountRepository.findById(id).orElse(null));
     }
 
-/*    Implementa el método en el controlador de cuentas que cree una nueva cuenta, la
-asocie al cliente con la sesión iniciada, guarde la cuenta a través del el repositorio*/
-
     @Autowired
     private ClientRepository clientRepository;
-    @RequestMapping(path = "/api/clients/current/accounts", method = RequestMethod.POST)
 
-    //logica comprobar cantidad de cuentas
-        if (clientRepository.findByEmail(email) != null) {
-            return new ResponseEntity<>("Name already in use",
-                    HttpStatus.FORBIDDEN);
+    @RequestMapping(path = "/clients/current/accounts", method = RequestMethod.POST)
+    public ResponseEntity<Object> createAcc(Authentication authentication) {
+        Client authUser;
+        authUser=clientRepository.findByEmail(authentication.getName());
+        if(authUser.getAccounts().size()>3){
+            return new ResponseEntity<>("403 prohibido", HttpStatus.FORBIDDEN);
+        }else{
+            Random random = new Random();
+            int randomNumber = random.nextInt(99999999) + 1;
+            String randomNumberAsString = Integer.toString(randomNumber);
+            Account account=new Account("VIN" + randomNumberAsString, LocalDate.now(), 0);
+            accountRepository.save(account);
+            authUser.addAccount(account);
+            return new ResponseEntity<>("201 creada", HttpStatus.CREATED);
         }
-
+        //if (usuario.accounts > 3){return new ResponseEntity<>(“403 prohibido", HttpStatus.FORBIDDEN);}
+        //else{usuario.addaccount(generador random, date.now, balance=0);
+        //return new ResponseEntity<>(“201 creada", HttpStatus.CREATED);}
+        //logica comprobar cantidad de cuentas
         //logica de salvar la cuenta en el usuario
-        clientRepository.save(new Client(firstName, lastName,
-                email, passwordEncoder.encode(password)));
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        }
     }
 
-}
+
+
+
+

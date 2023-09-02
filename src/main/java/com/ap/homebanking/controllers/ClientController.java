@@ -52,9 +52,6 @@ public class ClientController {
                 email, passwordEncoder.encode(password)));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-    //@Autowired
-    //private AccountRepository accountRepository;
-    //@RequestMapping("/api/clients/current")
     @GetMapping("/clients/current")
     public ClientDTO getAll(Authentication authentication) {
         return new ClientDTO(clientRepository.findByEmail(authentication.getName()));
