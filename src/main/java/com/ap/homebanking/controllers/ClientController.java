@@ -14,7 +14,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Random;
 
 import static java.util.stream.Collectors.*;
 
@@ -36,6 +38,8 @@ public class ClientController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+
     @RequestMapping(path = "/clients", method = RequestMethod.POST)
     public ResponseEntity<Object> register(
             @RequestParam String firstName, @RequestParam String lastName,
@@ -50,8 +54,33 @@ public class ClientController {
         }
         clientRepository.save(new Client(firstName, lastName,
                 email, passwordEncoder.encode(password)));
+
+        //call method to create account defined below
+        createAcc(email);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+    //identify new client by email
+    //add acc to it
+    @Autowired
+    AccountRepository accountRepository;
+    public void createAcc(String email){
+    Client authUser;
+    authUser=clientRepository.findByEmail(email);
+    Random random = new Random();
+    int randomNumber = random.nextInt(99999999) + 1;
+    String randomNumberAsString = Integer.toString(randomNumber);
+    Account account=new Account("VIN" + randomNumberAsString, LocalDate.now(), 0);
+        accountRepository.save(account);
+        authUser.addAccount(account);
+       }
+
+
+
+
+
+
+
+
     @GetMapping("/clients/current")
     public ClientDTO getAll(Authentication authentication) {
         return new ClientDTO(clientRepository.findByEmail(authentication.getName()));
