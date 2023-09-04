@@ -37,48 +37,50 @@ public class TransactionController {
     @Transactional
     @RequestMapping(path = "/transactions", method = RequestMethod.POST)
     public ResponseEntity<Object> startTransaction(
+            @RequestParam String fromAccountNumber,
+            @RequestParam String toAccountNumber,
             @RequestParam double amount,
             @RequestParam String description,
-            @RequestParam String originAccountNumber,
-            @RequestParam String targetAccountNumber,
             Authentication authentication) {
+
         Client authUser = clientRepository.findByEmail(authentication.getName());
-        Account originAccount = accountRepository.findByNumber(originAccountNumber);
-        Account targetAccount = accountRepository.findByNumber(targetAccountNumber);
-        Transaction transaction1 = new Transaction(TransactionType.Debit, - amount, originAccountNumber + description, LocalDateTime.now());
-        Transaction transaction2 = new Transaction(TransactionType.Credit, + amount, targetAccountNumber + description, LocalDateTime.now());
+        Account originAccount = accountRepository.findByNumber(fromAccountNumber);
+        Account targetAccount = accountRepository.findByNumber(toAccountNumber);
+
         if (amount == 0.0) {
             return new ResponseEntity<>("ERROR. Missing data: amount", HttpStatus.FORBIDDEN);
-        } else if (originAccountNumber.isEmpty()) {
+        } else if (fromAccountNumber.isEmpty()) {
             return new ResponseEntity<>("ERROR. Missing data: origin account number", HttpStatus.FORBIDDEN);
-        } else if (targetAccountNumber.isEmpty()) {
+        } else if (toAccountNumber.isEmpty()) {
             return new ResponseEntity<>("ERROR. Missing data: target account number", HttpStatus.FORBIDDEN);
-        } else if (originAccountNumber.equals(targetAccountNumber)) {
+        } else if (fromAccountNumber.equals(toAccountNumber)) {
             return new ResponseEntity<>("ERROR. Origin Account and Target Account are the same", HttpStatus.FORBIDDEN);
-        } else if (accountRepository.findByNumber(originAccountNumber) == null) {
+        } else if (accountRepository.findByNumber(fromAccountNumber) == null) {
             return new ResponseEntity<>("ERROR. Origin Account does not exist", HttpStatus.FORBIDDEN);
-        } else if (accountRepository.findByNumber(targetAccountNumber) == null) {
+        } else if (accountRepository.findByNumber(toAccountNumber) == null) {
             return new ResponseEntity<>("ERROR. Target Account does not exist", HttpStatus.FORBIDDEN);
-        } else if (authUser.getAccounts().stream().noneMatch(account -> account.getNumber().equals(originAccountNumber))){
+        } else if (authUser.getAccounts().stream().noneMatch(account -> account.getNumber().equals(fromAccountNumber))){
             return new ResponseEntity<>("ERROR. Origin Account does not belong to user", HttpStatus.FORBIDDEN);
-        } else if (accountRepository.findByNumber(originAccountNumber).getBalance()<amount){
+        } else if (accountRepository.findByNumber(fromAccountNumber).getBalance()<amount){
             return new ResponseEntity<>("ERROR. Origin Account insufficient founds", HttpStatus.FORBIDDEN);
         } else {
-                originAccount.addTransaction(transaction1);
-                transactionRepository.save(transaction1);
-                accountRepository.save(originAccount);
-                targetAccount.addTransaction(transaction2);
-                transactionRepository.save(transaction2);
-                accountRepository.save(targetAccount);
-                return new ResponseEntity<>("Transaction Success", HttpStatus.CREATED);
+
+            Transaction transaction1 = new Transaction(TransactionType.Debit, - amount, fromAccountNumber + description, LocalDateTime.now());
+            Transaction transaction2 = new Transaction(TransactionType.Credit, + amount, toAccountNumber + description, LocalDateTime.now());
+
+            originAccount.addTransaction(transaction1);
+            originAccount.setBalance(originAccount.getBalance()-amount);
+
+            targetAccount.addTransaction(transaction2);
+            targetAccount.setBalance(targetAccount.getBalance()+amount);
+
+
+            transactionRepository.save(transaction1);
+            transactionRepository.save(transaction2);
+            accountRepository.save(originAccount);
+            accountRepository.save(targetAccount);
+            clientRepository.save(authUser);
+            return new ResponseEntity<>("Transaction Success", HttpStatus.CREATED);
         }
-
-
-        
-
-
-        //transactionRepository.findAll().stream().map(transaction -> new TransactionDTO(transaction)).collect(toList());
-        //return
-
     }
 }
