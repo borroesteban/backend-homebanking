@@ -15,12 +15,12 @@ public class Loan {
     private String name;
     private double maxAmount;
     @ElementCollection
-    private Set<Integer> payments =  new HashSet<>();
+    private List<Integer> payments =  new ArrayList<>();
 
 
     //constructors
     public Loan(){};
-    public Loan(String name, double maxAmount, Set<Integer> payments) {
+    public Loan(String name, double maxAmount, List<Integer> payments) {
         this.name = name;
         this.maxAmount = maxAmount;
         this.payments = payments;
@@ -52,16 +52,21 @@ public class Loan {
         this.maxAmount = maxAmount;
     }
 
-    public Set<Integer> getPayments() {
+    public List<Integer> getPayments() {
         return payments;
     }
 
-    public void setPayments(Set<Integer> payments) {
+    public void setPayments(List<Integer> payments) {
         this.payments = payments;
     }
 
     public Set<ClientLoan> getClientLoans(){
         return clientLoans;
+    }
+
+    public void setClientLoans(ClientLoan clientLoan) {
+        clientLoan.setLoan(this);
+        clientLoans.add(clientLoan);
     }
 }
 

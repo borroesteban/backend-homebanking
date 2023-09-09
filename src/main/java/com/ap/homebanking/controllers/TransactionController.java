@@ -47,7 +47,7 @@ public class TransactionController {
         Account originAccount = accountRepository.findByNumber(fromAccountNumber);
         Account targetAccount = accountRepository.findByNumber(toAccountNumber);
 
-        if (amount == 0.0) {
+        if (amount <= 0.0) {
             return new ResponseEntity<>("ERROR. Missing data: amount", HttpStatus.FORBIDDEN);
         } else if (fromAccountNumber.isEmpty()) {
             return new ResponseEntity<>("ERROR. Missing data: origin account number", HttpStatus.FORBIDDEN);

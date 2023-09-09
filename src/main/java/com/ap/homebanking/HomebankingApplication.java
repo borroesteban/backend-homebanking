@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @SpringBootApplication
@@ -50,12 +51,12 @@ public class HomebankingApplication {
 
 			//assign accounts to client
 			client1.addAccount(account1);
-			accountRepository.save(account1);
 			client1.addAccount(account2);
-			accountRepository.save(account2);
 			client2.addAccount(account3);
-			accountRepository.save(account3);
 			client2.addAccount(account4);
+			accountRepository.save(account1);
+			accountRepository.save(account2);
+			accountRepository.save(account3);
 			accountRepository.save(account4);
 
 			//transaction data
@@ -64,14 +65,14 @@ public class HomebankingApplication {
 
 			//assign transactions to accounts
 			account1.addTransaction(transaction1);
-			transactionRepository.save(transaction1);
 			account2.addTransaction((transaction2));
+			transactionRepository.save(transaction1);
 			transactionRepository.save(transaction2);
 
 			//create loans
-			Loan loan1 = new Loan("Hipotecario", 500000, Set.of(12,24,36,48,60));
-			Loan loan2 = new Loan("Personal",100000, Set.of(6,12,24));
-			Loan loan3 = new Loan("Automotriz", 300000, Set.of(6,12,24,36));
+			Loan loan1 = new Loan("Hipotecario", 500000, List.of(12,24,36,48,60));
+			Loan loan2 = new Loan("Personal",100000, List.of(6,12,24));
+			Loan loan3 = new Loan("Automotriz", 300000, List.of(6,12,24,36));
 
 			//save loans
 			loanRepository.save(loan1);
@@ -79,14 +80,23 @@ public class HomebankingApplication {
 			loanRepository.save(loan3);
 
 			//create clientloans for melba
-			ClientLoan clientLoan1 = new ClientLoan(client1, loan1, 400000, Set.of(60));
-			ClientLoan clientLoan2 = new ClientLoan(client1, loan2, 50000, Set.of(12));
-			ClientLoan clientLoan3 = new ClientLoan(client2, loan2, 100000, Set.of(24));
-			ClientLoan clientLoan4 = new ClientLoan(client2, loan3, 200000, Set.of(36));
+			ClientLoan clientLoan1 = new ClientLoan( 400000, 60);
+			ClientLoan clientLoan2 = new ClientLoan( 50000, 12);
+			ClientLoan clientLoan3 = new ClientLoan(100000, 24);
+			ClientLoan clientLoan4 = new ClientLoan(200000, 36);
+
 			clientLoanRepository.save(clientLoan1);
 			clientLoanRepository.save(clientLoan2);
 			clientLoanRepository.save(clientLoan3);
 			clientLoanRepository.save(clientLoan4);
+
+/*			client1.addClientLoan(clientLoan1);
+			client1.addClientLoan(clientLoan2);
+			client2.addClientLoan(clientLoan3);
+			client2.addClientLoan(clientLoan4);*/
+
+
+
 
 			//create, assign, and save cards
 			Card card1= new Card(client1.getFirstName()+" "+client1.getLastName(),

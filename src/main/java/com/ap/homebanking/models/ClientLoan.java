@@ -14,19 +14,14 @@ public class ClientLoan {
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
     private double amount;
-
-    @ElementCollection
-    private Set<Integer> payments=  new HashSet<>();
+    private int payments;
     private String name;
 
     //constructors
     public ClientLoan(){}
-    public ClientLoan(Client client, Loan loan, double amount, Set<Integer> payments){
+    public ClientLoan(double amount, int payments){
         this.amount=amount;
         this.payments=payments;
-        this.client=client;
-        this.loan=loan;
-        this.name=loan.getName();
     }
 
     //relationships
@@ -51,33 +46,24 @@ public class ClientLoan {
         this.amount = amount;
     }
 
-    public Set<Integer> getPayments() {
+    public int getPayments() {
         return payments;
     }
 
-    public void setPayments(Set<Integer> payments) {
+    public void setPayments(int payments) {
         this.payments = payments;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Loan getLoan() {
-        return loan;
-    }
-
-    public void setLoan(Loan loan) {
-        this.loan = loan;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setClient(Client client) {
+        client.addClientLoan(this);
+    }
+
+    public void setLoan(Loan loan) {
+        loan.setClientLoans(this);
+    }
 }
 
