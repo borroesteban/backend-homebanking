@@ -14,7 +14,7 @@ public class Card {
     private String cardHolder;
     private type type;
     private color color;
-    private int number;
+    private String number;
     private int cvv;
     private LocalDate thruDate;
     private LocalDate fromDate;
@@ -22,7 +22,7 @@ public class Card {
     //constructors
     public Card() {};
 
-    public Card(String cardHolder, type type, color color, int number, int cvv, LocalDate thruDate, LocalDate fromDate, Client client) {
+    public Card(String cardHolder, type type, color color, String number, int cvv, LocalDate thruDate, LocalDate fromDate, Client client) {
         this.cardHolder = cardHolder;
         this.type = type;
         this.color = color;
@@ -65,11 +65,11 @@ public class Card {
         this.color = color;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 

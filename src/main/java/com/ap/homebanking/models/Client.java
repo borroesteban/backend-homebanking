@@ -82,8 +82,8 @@ public class Client {
     public void addAccount(Account account) {
         account.setClient(this);
         accounts.add(account);
-
     }
+
 
     public Set<ClientLoan> getClientLoans() {
         return clientLoans;
@@ -92,7 +92,12 @@ public class Client {
     public Set<Card> getCards() {
         return cards;
     }
+    public void addCard(Card card) {
+        card.setClient(this);
+        cards.add(card);
+    }
 }
+
 
 
 
