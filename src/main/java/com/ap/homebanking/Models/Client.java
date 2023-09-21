@@ -2,10 +2,9 @@ package com.ap.homebanking.Models;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Client {
@@ -25,6 +24,9 @@ public class Client {
         this.email = email;
     }
 
+    @OneToMany(mappedBy="client", fetch= FetchType.EAGER)
+    //Set<Account> accounts=new HashSet<>();
+    private Set<Account> accounts = new HashSet<>();
 
 
     public long getId(){
@@ -44,11 +46,19 @@ public class Client {
         this.lastName = lastName;
     }
 
-    private String getEmail(){
+    public String getEmail(){
         return email;
     }
-    private void setEmail(String Email){
+    public void setEmail(String Email){
         this.email = Email;
+    }
+
+    public Set<Account> getAccounts(){
+
+        return accounts;}
+    public void addAccount(Account account){
+        account.setClient(this);
+        accounts.add(account);
     }
 
 }
