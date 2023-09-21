@@ -1,6 +1,6 @@
 //imports
-package com.ap.homebanking.DTOS;
-import com.ap.homebanking.Models.Client;
+package com.ap.homebanking.dtos;
+import com.ap.homebanking.models.Client;
 import java.util.Set;
 import static java.util.stream.Collectors.toSet;
 
@@ -13,6 +13,7 @@ public class ClientDTO {
     private String email;
     private Set<AccountDTO> accounts;
     private Set<ClientLoanDTO> loans;
+    private Set<CardDTO> cards;
 
     //constructors
     public ClientDTO(Client client) {
@@ -22,6 +23,7 @@ public class ClientDTO {
         this.email = client.getEmail();
         this.accounts = client.getAccounts().stream().map(account -> new AccountDTO(account)).collect(toSet());
         this.loans = client.getClientLoans().stream().map(clientLoan -> new ClientLoanDTO(clientLoan)).collect(toSet());
+        this.cards= client.getCards().stream().map(card -> new CardDTO(card)).collect(toSet());
     }
 
     //getters & setters
@@ -42,6 +44,10 @@ public class ClientDTO {
     }
     public Set<ClientLoanDTO> getLoans() {
         return loans;
+    }
+
+    public Set<CardDTO> getCards() {
+        return cards;
     }
 }
 

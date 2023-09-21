@@ -1,4 +1,4 @@
-package com.ap.homebanking.Models;
+package com.ap.homebanking.models;
 
 public enum TransactionType {
     Debit,

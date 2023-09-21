@@ -1,13 +1,12 @@
-package com.ap.homebanking.DTOS;
-
-import com.ap.homebanking.Models.Account;
-import com.ap.homebanking.Models.Client;
-
+//IMPORTS
+package com.ap.homebanking.dtos;
+import com.ap.homebanking.models.Account;
 import java.time.LocalDate;
 import java.util.Set;
-
 import static java.util.stream.Collectors.toSet;
 
+
+//CLASS DEFINITION
 public class AccountDTO {
     private long id;
     private String number;
@@ -15,6 +14,7 @@ public class AccountDTO {
     private double balance;
     private Set<TransactionDTO> transactions;
 
+    //CONSTRUCTORS
     public AccountDTO(Account account) {
         this.id = account.getId();
         this.number = account.getNumber();
@@ -22,6 +22,8 @@ public class AccountDTO {
         this.balance = account.getBalance();
         this.transactions = account.getTransactions().stream().map(transaction -> new TransactionDTO(transaction)).collect(toSet());
     }
+
+    //GETTERS & SETTERS
 
     public long getId() {
         return id;

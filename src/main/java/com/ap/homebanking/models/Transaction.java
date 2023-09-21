@@ -1,9 +1,8 @@
-package com.ap.homebanking.Models;
+package com.ap.homebanking.models;
 
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity

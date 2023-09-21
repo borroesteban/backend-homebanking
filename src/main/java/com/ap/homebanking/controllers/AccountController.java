@@ -1,7 +1,6 @@
-package com.ap.homebanking.Controllers;
+package com.ap.homebanking.controllers;
 
-import com.ap.homebanking.DTOS.AccountDTO;
-import com.ap.homebanking.DTOS.ClientDTO;
+import com.ap.homebanking.dtos.AccountDTO;
 import com.ap.homebanking.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

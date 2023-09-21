@@ -1,7 +1,8 @@
 //imports
-package com.ap.homebanking.Models;
+package com.ap.homebanking.models;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,6 +31,9 @@ public class Client {
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<ClientLoan> clientLoans = new HashSet<>();
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private Set<Card> cards = new HashSet<>();
 
     //getters & setters
     public long getId() {
@@ -73,6 +77,10 @@ public class Client {
 
     public Set<ClientLoan> getClientLoans() {
         return clientLoans;
+    }
+
+    public Set<Card> getCards() {
+        return cards;
     }
 }
 
