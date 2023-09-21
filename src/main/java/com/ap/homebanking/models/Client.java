@@ -89,6 +89,11 @@ public class Client {
         return clientLoans;
     }
 
+    public void addClientLoan(ClientLoan clientLoan) {
+        clientLoan.setClient(this);
+        clientLoans.add(clientLoan);
+    }
+
     public Set<Card> getCards() {
         return cards;
     }

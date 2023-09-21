@@ -8,10 +8,7 @@ import java.util.Set;
 public class ClientLoanDTO {
     private long id;
     private double amount;
-
-    private Set<Integer> payments = new HashSet<>();
-    //private Client client;
-    //private Loan loan;
+    private int payments;
     private String loanName;
 
     public ClientLoanDTO(ClientLoan clientLoan){
@@ -31,17 +28,9 @@ public class ClientLoanDTO {
         return amount;
     }
 
-    public Set<Integer> getPayments() {
+    public int getPayments() {
         return payments;
     }
-
- /*   public Client getClient() {
-        return client;
-    }*/
-
-//    public Loan getLoan() {
-//        return loan;
-//    }
 
     public String getLoanName() {
         return loanName;

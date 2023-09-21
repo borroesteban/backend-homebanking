@@ -15,7 +15,7 @@ Vue.createApp({
                 })
                 .catch((error) => {
                     // handle error
-                    this.errorMsg = "Error getting data1";
+                    this.errorMsg = "Error getting data";
                     this.errorToats.show();
                 })
         },
