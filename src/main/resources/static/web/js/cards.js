@@ -1,5 +1,4 @@
 Vue.createApp({
-
     data() {
         return {
             clientInfo: {},
@@ -19,7 +18,7 @@ Vue.createApp({
                     this.debitCards = this.clientInfo.cards.filter(card => card.type == "DEBIT");
                 })
                 .catch((error) => {
-                    this.errorMsg = "Error getting data";
+                    this.errorMsg = "Error getting data3";
                     this.errorToats.show();
                 })
         },

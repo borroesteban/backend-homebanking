@@ -1,5 +1,4 @@
 Vue.createApp({
-
     data() {
         return {
             accountInfo: {},
@@ -15,11 +14,12 @@ Vue.createApp({
                 .then((response) => {
                     //get client ifo
                     this.accountInfo = response.data;
-                    this.accountInfo.transactions.sort((a, b) => parseInt(b.id - a.id))
+                    console.log(this.accountInfo);
+                    this.accountInfo.transactions.sort((a, b) => (b.id - a.id))
                 })
                 .catch((error) => {
                     // handle error
-                    this.errorMsg = "Error getting data";
+                    this.errorMsg = "Error getting data2";
                     this.errorToats.show();
                 })
         },
