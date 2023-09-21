@@ -2,13 +2,17 @@ package com.ap.homebanking;
 
 import com.ap.homebanking.Models.Account;
 import com.ap.homebanking.Models.Client;
+import com.ap.homebanking.Models.Transaction;
+import com.ap.homebanking.Models.TransactionType;
 import com.ap.homebanking.repositories.AccountRepository;
 import com.ap.homebanking.repositories.ClientRepository;
+import com.ap.homebanking.repositories.TransactionRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class HomebankingApplication {
@@ -19,7 +23,7 @@ public class HomebankingApplication {
 
 
 	@Bean
-	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository){
+	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository){
 		return(args ->{
 
 			//create melba and another client
@@ -43,6 +47,16 @@ public class HomebankingApplication {
 			accountRepository.save(account3);
 			client2.addAccount(account4);
 			accountRepository.save(account4);
+
+			//transaction data
+			Transaction transaction1 = new Transaction(TransactionType.Debit,-5000, "pizza order", LocalDateTime.now());
+			Transaction transaction2 = new Transaction(TransactionType.Credit, 7500,"service charge", LocalDateTime.now());
+
+			//assign transactions to accounts
+			account1.addTransaction(transaction1);
+			transactionRepository.save(transaction1);
+			account2.addTransaction((transaction2));
+			transactionRepository.save(transaction2);
 		});
 	}
 }
